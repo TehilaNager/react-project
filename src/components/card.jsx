@@ -54,6 +54,7 @@ function Card({ card, onLike = () => {}, onDelete = () => {} }) {
                 onClick={onLike}
               ></i>
             )}
+            <div></div>
             {user?.isAdmin && (
               <>
                 <Link
