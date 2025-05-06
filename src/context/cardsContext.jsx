@@ -54,6 +54,11 @@ export function CardsProvider({ children }) {
     return await cardsService.getCardById(id);
   };
 
+  const updateCardById = async (id) => {
+    await cardsService.updateCard(id);
+    fetchCards();
+  };
+
   const search = (term) => {
     setTerm(term);
   };
@@ -75,6 +80,7 @@ export function CardsProvider({ children }) {
         allCards,
         getCard,
         term,
+        updateCardById,
       }}
     >
       {children}

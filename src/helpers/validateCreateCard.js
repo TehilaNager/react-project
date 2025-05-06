@@ -5,12 +5,25 @@ function validateCreateCard() {
         title: Joi.string().min(2).max(256).required(),
         subtitle: Joi.string().min(2).max(256).required(),
         description: Joi.string().min(2).max(1024).required(),
-        phone: Joi.string().min(9).max(11).required().pattern(/^05\d{7,9}$/).messages({
-            'string.pattern.base': '"phone" must be a standard Israeli phone number starting with 05 and must contain at least 9 digits.',
-            'string.empty': '"phone" is required.',
-            'string.min': '"phone" must be at least 9 characters long.',
-            'string.max': '"phone" must be at most 11 characters long.',
-        }),
+        // phone: Joi.string().min(9).max(11).required().pattern(/^05\d{7,9}$/).messages({
+        //     'string.pattern.base': '"phone" must be a standard Israeli phone number starting with 05 and must contain at least 9 digits.',
+        //     'string.empty': '"phone" is required.',
+        //     'string.min': '"phone" must be at least 9 characters long.',
+        //     'string.max': '"phone" must be at most 11 characters long.',
+        // }),
+
+
+        phone: Joi.string()
+            .min(9) // אורך מינימום 9
+            .max(12) // אורך מקסימום 12
+            .required()
+            .pattern(/^05\d{1}-?\d{6,8}$/) // רק בודקים את הפורמט של הטלפון
+            .messages({
+                'string.empty': '"phone" is required.',
+                'string.min': '"phone" must be at least 9 characters long.',
+                'string.max': '"phone" must be at most 12 characters long.',
+                'string.pattern.base': '"phone" must be a valid Israeli phone number, starting with 05 and containing between 9 and 12 digits. A dash after the third digit is optional.'
+            }),
         email: Joi.string().min(5).required().email({ tlds: false }),
         web: Joi.string().min(14).allow("").uri(),
         url: Joi.string().min(14).allow("").uri(),

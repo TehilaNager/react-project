@@ -21,7 +21,7 @@ async function deleteCard(id) {
 
 async function updateCard(id) {
   const response = await httpService.put(`/cards/${id}`);
-  console.log(response.data);
+  return response.data;
 
 }
 

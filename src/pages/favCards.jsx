@@ -4,7 +4,8 @@ import PageHeader from "../components/common/pageHeader";
 import { useCards } from "../context/cardsContext";
 
 function FavCards() {
-  const { favoritesCards, like, remove, getCard, resetSearch } = useCards();
+  const { favoritesCards, like, remove, resetSearch } = useCards();
+
   const favorites = favoritesCards();
 
   useEffect(() => {

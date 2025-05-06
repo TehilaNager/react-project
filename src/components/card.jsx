@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { useAuth } from "../context/authContext";
+import formatPhoneToInternational from "../helpers/formatPhoneToInternational";
 
 function Card({ card, onLike = () => {}, onDelete = () => {} }) {
   const { user } = useAuth() || {};
@@ -40,10 +41,12 @@ function Card({ card, onLike = () => {}, onDelete = () => {} }) {
           </div>
 
           <div className="d-flex justify-content-evenly mt-2 pt-3">
-            <i
-              className="bi bi-telephone-fill"
-              style={{ cursor: "pointer" }}
-            ></i>
+            <a href={`tel:${formatPhoneToInternational(card.phone)}`}>
+              <i
+                className="bi bi-telephone-fill text-black"
+                style={{ cursor: "pointer" }}
+              ></i>
+            </a>
             {user && (
               <i
                 style={{
@@ -54,7 +57,6 @@ function Card({ card, onLike = () => {}, onDelete = () => {} }) {
                 onClick={onLike}
               ></i>
             )}
-            <div></div>
             {user?.isAdmin && (
               <>
                 <Link
