@@ -21,7 +21,7 @@ function SignIn() {
         email: "",
         password: "",
       },
-      validate(values) {
+      validate: (values) => {
         const schema = Joi.object({
           email: Joi.string().min(5).required().email({ tlds: false }),
           password: Joi.string()

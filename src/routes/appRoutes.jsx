@@ -9,6 +9,7 @@ import MyCards from "../pages/myCards";
 import SandBox from "../pages/sandBox";
 import CreateCard from "../pages/createCard";
 import EditCard from "../pages/editCard";
+import EditUser from "../pages/editUser";
 
 function AppRoutes() {
   return (
@@ -23,6 +24,7 @@ function AppRoutes() {
       <Route path="/my-cards" element={<MyCards />} />
       <Route path="/create-card" element={<CreateCard />} />
       <Route path="/edit-card/:id" element={<EditCard />} />
+      <Route path="/edit-user/:id" element={<EditUser />} />
       <Route path="/sandbox" element={<SandBox />} />
     </Routes>
   );

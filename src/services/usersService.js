@@ -47,13 +47,25 @@ async function getAllUsers() {
     return response.data;
 }
 
+async function deleteUser(id) {
+    const response = await httpService.delete(`users/${id}`);
+    return response.data;
+}
+
+async function updateUserById(id, userData) {
+    const response = await httpService.put(`users/${id}`, userData)
+    return response.data;
+}
+
 const usersService = {
     createUser,
     logIn,
     logOut,
     getJWT,
     getUser,
-    getAllUsers
+    getAllUsers,
+    deleteUser,
+    updateUserById
 };
 
 export default usersService;

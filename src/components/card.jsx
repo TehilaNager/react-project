@@ -49,28 +49,41 @@ function Card({ card, onLike = () => {}, onDelete = () => {} }) {
               ></i>
             </a>
             {user && (
-              <i
+              <button
                 style={{
                   cursor: "pointer",
+                  border: "none",
+                  background: "none",
+                  padding: 0,
                   color: card.liked ? "red" : "black",
                 }}
-                className={card.liked ? "bi bi-heart-fill" : "bi bi-heart"}
                 onClick={onLike}
-              ></i>
+              >
+                <i
+                  className={card.liked ? "bi bi-heart-fill" : "bi bi-heart"}
+                ></i>
+              </button>
             )}
             {(user?.isAdmin || (user?.isBusiness && isOwned)) && (
               <>
                 <Link
-                  className="bi bi-pencil-fill text-black"
                   style={{ cursor: "pointer" }}
                   to={`/edit-card/${card._id}`}
                   state={card}
-                ></Link>
-                <i
-                  className="bi bi-trash3-fill"
-                  style={{ cursor: "pointer" }}
+                >
+                  <i className="bi bi-pencil-fill text-black"></i>
+                </Link>
+                <button
+                  style={{
+                    cursor: "pointer",
+                    border: "none",
+                    background: "none",
+                    padding: 0,
+                  }}
                   onClick={onDelete}
-                ></i>
+                >
+                  <i className="bi bi-trash3-fill"></i>
+                </button>
               </>
             )}
           </div>

@@ -18,7 +18,7 @@ function CreateCard() {
     useFormik({
       validateOnMount: true,
       initialValues: initialValuesCreateCard(),
-      validate(values) {
+      validate: (values) => {
         const schema = validateCreateCard();
 
         const { error } = schema.validate(values, { abortEarly: false });

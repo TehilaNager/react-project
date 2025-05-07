@@ -20,7 +20,7 @@ function SignUp() {
     useFormik({
       validateOnMount: true,
       initialValues: initialValuesSignup(),
-      validate(values) {
+      validate: (values) => {
         const schema = validateSignup();
 
         const { error } = schema.validate(values, { abortEarly: false });

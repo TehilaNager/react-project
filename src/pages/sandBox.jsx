@@ -1,21 +1,12 @@
-import { useEffect, useState } from "react";
-import usersService from "../services/usersService";
+import { Link } from "react-router";
+import { useAuth } from "../context/authContext";
 
 function SandBox() {
-  const [users, setUsers] = useState([]);
-
-  const fetchUsers = async () => {
-    const data = await usersService.getAllUsers();
-    setUsers(data);
-  };
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  const { users, remove } = useAuth();
 
   return (
     <div className="container mt-5">
-      <table className="table table-sm">
+      <table className="table">
         <thead>
           <tr>
             <th scope="col">Id</th>
@@ -43,16 +34,26 @@ function SandBox() {
                 ></i>
               </td>
               <td>
-                <i
-                  className="bi bi-pencil-fill"
+                <Link
                   style={{ cursor: "pointer" }}
-                ></i>
+                  to={`/edit-user/${user._id}`}
+                  state={user}
+                >
+                  <i className="bi bi-pencil-fill text-black"></i>
+                </Link>
               </td>
               <td>
-                <i
-                  className="bi bi-trash3-fill"
-                  style={{ cursor: "pointer" }}
-                ></i>
+                <button
+                  style={{
+                    cursor: "pointer",
+                    border: "none",
+                    background: "none",
+                    padding: 0,
+                  }}
+                  onClick={() => remove(user._id)}
+                >
+                  <i className="bi bi-trash3-fill"></i>
+                </button>
               </td>
             </tr>
           ))}

@@ -1,31 +1,24 @@
 import { useFormik } from "formik";
+import initialValuesEditUser from "../helpers/initialValuesEditUser";
 import PageHeader from "../components/common/pageHeader";
 import Input from "../components/common/input";
 import FormButtons from "../components/common/FormButtons";
-import validateCreateCard from "../helpers/validateCreateCard";
-import initialValuesEditCard from "../helpers/initialValuesEditCard";
-import { useCards } from "../context/cardsContext";
-import { useLocation, useNavigate } from "react-router";
-import normalValuesCard from "../helpers/normalValuesCard";
-import { useState } from "react";
+import validateEditUser from "../helpers/validateEditUser";
+import { useAuth } from "../context/authContext";
+import normalValuesEditUser from "../helpers/normalValesEditUser";
+import { useNavigate } from "react-router";
 
-function EditCard() {
-  const [serverError, setServerError] = useState("");
-
-  const { updateCard } = useCards();
+function EditUser() {
+  const { updateUser } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const card = location.state;
 
-  const { getFieldProps, handleSubmit, errors, isValid, resetForm } = useFormik(
+  const { handleSubmit, getFieldProps, errors, isValid, resetForm } = useFormik(
     {
-      initialValues: initialValuesEditCard(),
+      initialValues: initialValuesEditUser(),
       validateOnMount: true,
       validate: (values) => {
-        const schema = validateCreateCard();
-
+        const schema = validateEditUser();
         const { error } = schema.validate(values, { abortEarly: false });
-
         if (!error) {
           return null;
         }
@@ -34,24 +27,16 @@ function EditCard() {
         for (const detail of error.details) {
           errors[detail.path[0]] = detail.message;
         }
+
         return errors;
       },
       onSubmit: async (values) => {
         try {
-          const normalCard = normalValuesCard(values);
-          await updateCard(card._id, normalCard);
-          navigate("/");
+          const normalUser = normalValuesEditUser(values);
+          await updateUser(normalUser);
+          navigate("/sandbox");
         } catch (err) {
-          if (err.status === 400) {
-            let message = err.response.data;
-            if (
-              typeof message === "string" &&
-              message.includes("email_1 dup key")
-            ) {
-              message = "Email address already in use.";
-            }
-            setServerError(message);
-          }
+          console.log(err);
         }
       },
     }
@@ -59,36 +44,36 @@ function EditCard() {
 
   return (
     <div className="container col-11 col-md-7">
-      <PageHeader title="Edit Card" classNameTitle="my-4 text-center" />
+      <PageHeader title="Edit User" classNameTitle="my-4 text-center" />
 
       <form onSubmit={handleSubmit} noValidate autoComplete="off">
         <div
           style={{ gridTemplateColumns: "1fr 1fr" }}
-          className="d-grid gap-3 mb-4"
+          className="d-grid gap-3"
         >
           <Input
-            {...getFieldProps("title")}
-            error={errors.title}
-            label="Title"
+            {...getFieldProps("first")}
+            error={errors.first}
+            label="First name"
             type="text"
-            placeholder="Graphic Designer"
-            required
-          />
-          <Input
-            {...getFieldProps("subtitle")}
-            error={errors.subtitle}
-            label="Subtitle"
-            type="text"
-            placeholder="Helping Brands Look Their Best"
+            placeholder="El"
             required
           />
 
           <Input
-            {...getFieldProps("description")}
-            error={errors.description}
-            label="Description"
+            {...getFieldProps("middle")}
+            error={errors.middle}
+            label="Middle name"
             type="text"
-            placeholder="Designs that speak your brand’s language"
+            placeholder="Moshe"
+          />
+
+          <Input
+            {...getFieldProps("last")}
+            error={errors.last}
+            label="Last name"
+            type="text"
+            placeholder="Cohen"
             required
           />
 
@@ -99,23 +84,6 @@ function EditCard() {
             type="tel"
             placeholder="0585549635"
             required
-          />
-
-          <Input
-            {...getFieldProps("email")}
-            error={errors.email}
-            label="Email"
-            type="email"
-            placeholder="Dani@Cohen.com"
-            required
-          />
-
-          <Input
-            {...getFieldProps("web")}
-            error={errors.web}
-            label="Web"
-            type="url"
-            placeholder="www.noalevi.design"
           />
 
           <Input
@@ -131,7 +99,7 @@ function EditCard() {
             error={errors.alt}
             label="Image alt"
             type="text"
-            placeholder="Image alt"
+            placeholder=""
           />
 
           <Input
@@ -182,28 +150,33 @@ function EditCard() {
             error={errors.zip}
             label="Zip"
             type="text"
-            placeholder=""
+            placeholder="8920435"
+            required
+          />
+
+          <Input
+            {...getFieldProps("isBusiness")}
+            type="checkbox"
+            label=" Signup as business"
             required
           />
         </div>
 
-        {serverError && (
+        {/* {serverError && (
           <div className="alert alert-danger" role="alert">
             {serverError}
           </div>
-        )}
+        )} */}
 
         <FormButtons
           disabled={!isValid}
           onReset={() =>
             resetForm({
               values: {
-                title: "",
-                subtitle: "",
-                description: "",
+                first: "",
+                middle: "",
+                last: "",
                 phone: "",
-                email: "",
-                web: "",
                 url: "",
                 alt: "",
                 state: "",
@@ -212,6 +185,7 @@ function EditCard() {
                 street: "",
                 houseNumber: "",
                 zip: "",
+                isBusiness: false,
               },
             })
           }
@@ -221,4 +195,4 @@ function EditCard() {
   );
 }
 
-export default EditCard;
+export default EditUser;
