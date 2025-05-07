@@ -8,6 +8,17 @@ authContext.displayName = "Auth";
 export function AuthProvider({ children }) {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(usersService.getUser());
+  const [initialValueEdit, setInitialValueEdit] = useState({});
+
+  const fetchCurrentUser = async () => {
+    const response = await usersService.getUserById(user._id);
+    setInitialValueEdit(response);
+    return response;
+  };
+
+  useEffect(() => {
+    fetchCurrentUser();
+  }, []);
 
   const location = useLocation();
   const userState = location.state;
@@ -56,6 +67,7 @@ export function AuthProvider({ children }) {
         remove,
         userState,
         updateUser,
+        initialValueEdit,
       }}
     >
       {children}

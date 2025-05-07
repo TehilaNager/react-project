@@ -18,7 +18,6 @@ function normalValuesEditUser(values) {
             houseNumber: values.houseNumber,
             zip: values.zip,
         },
-        isBusiness: values.isBusiness,
     });
 }
 

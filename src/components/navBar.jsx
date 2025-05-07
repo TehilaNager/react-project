@@ -99,19 +99,51 @@ function NavBar() {
               </form>
             </li>
 
-            <i className="bi bi-moon-fill ms-3 fs-4"></i>
+            {/* <i className="bi bi-moon-fill ms-3 fs-4"></i> */}
 
             {user ? (
-              <li className="nav-item">
-                <NavLink
-                  className={({ isActive }) =>
-                    "nav-link" + (isActive ? " active" : "")
-                  }
-                  to="/sign-out"
+              <div
+                className="dropdown text-center"
+                style={{ display: "inline-block", position: "relative" }}
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/1896/1896513.png"
+                  alt="Profile"
+                  className="dropdown-toggle mx-3"
+                  data-bs-toggle="dropdown"
+                  style={{
+                    width: "50px",
+                    cursor: "pointer",
+                    borderRadius: "50%",
+                  }}
+                />
+                <ul
+                  className="dropdown-menu shadow text-center"
+                  style={{
+                    position: "absolute",
+                    top: "60px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                  }}
                 >
-                  Log Out
-                </NavLink>
-              </li>
+                  <li>
+                    <Link
+                      className="dropdown-item text-danger px-4 py-2"
+                      to={`/edit-user/${user?._id}`}
+                    >
+                      Edit
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item text-danger px-4 py-2"
+                      to="/sign-out"
+                    >
+                      Log out
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             ) : (
               <>
                 <li className="nav-item">

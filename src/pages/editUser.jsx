@@ -7,8 +7,11 @@ import validateEditUser from "../helpers/validateEditUser";
 import { useAuth } from "../context/authContext";
 import normalValuesEditUser from "../helpers/normalValesEditUser";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 
 function EditUser() {
+  const [serverError, setServerError] = useState();
+  const { user } = useAuth();
   const { updateUser } = useAuth();
   const navigate = useNavigate();
 
@@ -34,9 +37,15 @@ function EditUser() {
         try {
           const normalUser = normalValuesEditUser(values);
           await updateUser(normalUser);
-          navigate("/sandbox");
+          if (user.isAdmin === true) {
+            navigate("/sandbox");
+          }
         } catch (err) {
-          console.log(err);
+          if (err.status === 400) {
+            let message = err.response.data;
+            message = message.replace("Joi Error:", "");
+            setServerError(message);
+          }
         }
       },
     }
@@ -159,14 +168,15 @@ function EditUser() {
             type="checkbox"
             label=" Signup as business"
             required
+            checked={getFieldProps("isBusiness").value}
           />
         </div>
 
-        {/* {serverError && (
+        {serverError && (
           <div className="alert alert-danger" role="alert">
             {serverError}
           </div>
-        )} */}
+        )}
 
         <FormButtons
           disabled={!isValid}
