@@ -24,13 +24,15 @@ export function AuthProvider({ children }) {
   const userState = location.state;
 
   const fetchUsers = async () => {
-    const data = await usersService.getAllUsers();
-    setUsers(data);
+    if (user.isAdmin) {
+      const data = await usersService.getAllUsers();
+      setUsers(data);
+    }
   };
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [users]);
 
   const remove = async (id) => {
     await usersService.deleteUser(id);
@@ -67,6 +69,7 @@ export function AuthProvider({ children }) {
         remove,
         userState,
         updateUser,
+        initialValueEdit,
       }}
     >
       {children}

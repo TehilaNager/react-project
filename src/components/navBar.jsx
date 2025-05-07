@@ -4,7 +4,7 @@ import { useAuth } from "../context/authContext";
 import { useCards } from "../context/cardsContext";
 
 function NavBar() {
-  const { user } = useAuth();
+  const { user, initialValueEdit } = useAuth();
   const { search, term } = useCards();
 
   return (
@@ -130,6 +130,7 @@ function NavBar() {
                     <Link
                       className="dropdown-item text-danger px-4 py-2"
                       to={`/edit-user/${user?._id}`}
+                      state={initialValueEdit}
                     >
                       Edit
                     </Link>

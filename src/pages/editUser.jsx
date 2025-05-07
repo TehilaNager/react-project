@@ -39,6 +39,8 @@ function EditUser() {
           await updateUser(normalUser);
           if (user.isAdmin === true) {
             navigate("/sandbox");
+          } else {
+            navigate("/");
           }
         } catch (err) {
           if (err.status === 400) {
