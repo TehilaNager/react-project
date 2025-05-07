@@ -42,17 +42,19 @@ function SandBox() {
                 </Link>
               </td>
               <td>
-                <button
-                  style={{
-                    cursor: "pointer",
-                    border: "none",
-                    background: "none",
-                    padding: 0,
-                  }}
-                  onClick={() => remove(user._id)}
-                >
-                  <i className="bi bi-trash3-fill"></i>
-                </button>
+                {!user.isAdmin && (
+                  <button
+                    style={{
+                      cursor: "pointer",
+                      border: "none",
+                      background: "none",
+                      padding: 0,
+                    }}
+                    onClick={() => remove(user._id)}
+                  >
+                    <i className="bi bi-trash3-fill"></i>
+                  </button>
+                )}
               </td>
             </tr>
           ))}

@@ -62,10 +62,10 @@ async function updateUserById(id, userData) {
     return response.data;
 }
 
-async function updateIsBusiness(id) {
-    const response = await httpService.patch(`/users/${id}`)
-    return response.data;
-}
+// async function updateIsBusiness(id) {
+//     const response = await httpService.patch(`/users/${id}`)
+//     return response.data;
+// }
 
 const usersService = {
     createUser,

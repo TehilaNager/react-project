@@ -67,7 +67,6 @@ export function AuthProvider({ children }) {
         remove,
         userState,
         updateUser,
-        initialValueEdit,
       }}
     >
       {children}

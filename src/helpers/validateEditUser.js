@@ -39,7 +39,7 @@ function validateEditUser() {
                 'number.max': '"ZIP Code" must be a safe integer',
                 'number.minDigits': '"ZIP Code" must contain at least two digits',
             }),
-        // isBusiness: Joi.boolean().required(),
+        isBusiness: Joi.boolean().required(),
     }));
 }
 
