@@ -22,7 +22,7 @@ function AppRoutes() {
       <Route path="/fav-cards" element={<FavCards />} />
       <Route path="/my-cards" element={<MyCards />} />
       <Route path="/create-card" element={<CreateCard />} />
-      <Route path="/edit-card" element={<EditCard />} />
+      <Route path="/edit-card/:id" element={<EditCard />} />
       <Route path="/sandbox" element={<SandBox />} />
     </Routes>
   );

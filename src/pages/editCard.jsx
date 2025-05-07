@@ -5,11 +5,15 @@ import FormButtons from "../components/common/FormButtons";
 import validateCreateCard from "../helpers/validateCreateCard";
 import initialValuesEditCard from "../helpers/initialValuesEditCard";
 import { useCards } from "../context/cardsContext";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
+import normalValuesCard from "../helpers/normalValuesCard";
+import { useState } from "react";
 
 function EditCard() {
-  const { updateCardById } = useCards();
+  const [serverError, setServerError] = useState("");
 
+  const { updateCard } = useCards();
+  const navigate = useNavigate();
   const location = useLocation();
   const card = location.state;
 
@@ -32,8 +36,22 @@ function EditCard() {
         return errors;
       },
       onSubmit: async (values) => {
-        await updateCardById(card._id);
-        console.log(values);
+        try {
+          const normalCard = normalValuesCard(values);
+          await updateCard(card._id, normalCard);
+          navigate("/");
+        } catch (err) {
+          if (err.status === 400) {
+            let message = err.response.data;
+            if (
+              typeof message === "string" &&
+              message.includes("email_1 dup key")
+            ) {
+              message = "Email address already in use.";
+            }
+            setServerError(message);
+          }
+        }
       },
     });
 
@@ -167,14 +185,14 @@ function EditCard() {
           />
         </div>
 
-        {/* {serverError && (
+        {serverError && (
           <div className="alert alert-danger" role="alert">
             {serverError}
           </div>
-        )} */}
+        )}
 
         <FormButtons
-          // disabled={!isValid}
+          disabled={!isValid}
           onReset={() =>
             resetForm({
               values: {

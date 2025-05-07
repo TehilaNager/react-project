@@ -4,6 +4,7 @@ import formatPhoneToInternational from "../helpers/formatPhoneToInternational";
 
 function Card({ card, onLike = () => {}, onDelete = () => {} }) {
   const { user } = useAuth() || {};
+  const isOwned = card.user_id === user?._id;
 
   return (
     card && (
@@ -57,12 +58,12 @@ function Card({ card, onLike = () => {}, onDelete = () => {} }) {
                 onClick={onLike}
               ></i>
             )}
-            {user?.isAdmin && (
+            {(user?.isAdmin || (user?.isBusiness && isOwned)) && (
               <>
                 <Link
                   className="bi bi-pencil-fill text-black"
                   style={{ cursor: "pointer" }}
-                  to="/edit-card"
+                  to={`/edit-card/${card._id}`}
                   state={card}
                 ></Link>
                 <i

@@ -5,8 +5,9 @@ const TOKEN_KEY = "token";
 
 refreshToken();
 
-function createUser(values) {
-    return httpService.post("/users", values);
+async function createUser(values) {
+    const response = await httpService.post("/users", values);
+    return response.data;
 }
 
 async function logIn(credentials) {
@@ -41,12 +42,18 @@ function getUser() {
     }
 }
 
+async function getAllUsers() {
+    const response = await httpService.get("/users")
+    return response.data;
+}
+
 const usersService = {
     createUser,
     logIn,
     logOut,
     getJWT,
-    getUser
+    getUser,
+    getAllUsers
 };
 
 export default usersService;

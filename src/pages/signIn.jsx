@@ -8,7 +8,7 @@ import FormButtons from "../components/common/FormButtons";
 import { useAuth } from "../context/authContext";
 
 function SignIn() {
-  const [serverError, setServerError] = useState();
+  const [serverError, setServerError] = useState("");
 
   const { logIn, user } = useAuth();
 
@@ -59,7 +59,7 @@ function SignIn() {
           navigate("/");
         } catch (err) {
           if (err.status === 400) {
-            const message = err.response.data;
+            let message = err.response.data;
             message = message.replace("Joi Error: user ", "");
             message = message.replace(
               '"mail" mast be a valid mail',

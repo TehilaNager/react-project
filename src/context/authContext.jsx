@@ -11,9 +11,7 @@ export function AuthProvider({ children }) {
 
   const logIn = async (credentials) => {
     const response = await usersService.logIn(credentials);
-
     refreshUser();
-
     return response;
   };
 
@@ -24,7 +22,12 @@ export function AuthProvider({ children }) {
 
   return (
     <authContext.Provider
-      value={{ user, createUser: usersService.createUser, logIn, logOut }}
+      value={{
+        user,
+        createUser: usersService.createUser,
+        logIn,
+        logOut,
+      }}
     >
       {children}
     </authContext.Provider>

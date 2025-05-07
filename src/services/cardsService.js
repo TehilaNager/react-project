@@ -6,7 +6,8 @@ async function getAllCards() {
 }
 
 async function createCard(values) {
-  await httpService.post("/cards", values,);
+  const response = await httpService.post("/cards", values);
+  return response.data;
 }
 
 async function updateCardsLikes(id) {
@@ -19,10 +20,9 @@ async function deleteCard(id) {
   return response.data;
 }
 
-async function updateCard(id) {
-  const response = await httpService.put(`/cards/${id}`);
-  return response.data;
-
+async function updateCardById(id, cardData) {
+  const response = await httpService.put(`/cards/${id}`, cardData);
+  return response.data
 }
 
 async function getCardById(id) {
@@ -35,7 +35,7 @@ const cardsService = {
   createCard,
   updateCardsLikes,
   deleteCard,
-  updateCard,
+  updateCardById,
   getCardById
 };
 

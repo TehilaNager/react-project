@@ -48,7 +48,7 @@ function CreateCard() {
               '"email" mast be a valid email'
             );
             if (message.indexOf("Mongoose Error: E11000") === 0) {
-              message = "Email already exists";
+              message = "Email already exists.";
             }
             setServerError(message);
           }

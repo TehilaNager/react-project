@@ -27,8 +27,6 @@ export function CardsProvider({ children }) {
     fetchCards();
   };
 
-  const edit = (id) => {};
-
   const remove = async (id) => {
     await cardsService.deleteCard(id);
     fetchCards();
@@ -54,9 +52,10 @@ export function CardsProvider({ children }) {
     return await cardsService.getCardById(id);
   };
 
-  const updateCardById = async (id) => {
-    await cardsService.updateCard(id);
+  const updateCard = async (id, cardData) => {
+    const response = await cardsService.updateCardById(id, cardData);
     fetchCards();
+    return response;
   };
 
   const search = (term) => {
@@ -71,7 +70,6 @@ export function CardsProvider({ children }) {
     <cardsContext.Provider
       value={{
         like,
-        edit,
         remove,
         favoritesCards,
         allMyCards,
@@ -80,7 +78,7 @@ export function CardsProvider({ children }) {
         allCards,
         getCard,
         term,
-        updateCardById,
+        updateCard,
       }}
     >
       {children}
