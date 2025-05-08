@@ -5,11 +5,11 @@ function validateEditUser() {
         first: Joi.string().min(2).max(256).required(),
         middle: Joi.string().min(2).max(256).allow(""),
         last: Joi.string().min(2).max(256).required(),
-        phone: Joi.string().min(9).max(11).required().pattern(/^05\d{7,9}$/).messages({
-            'string.pattern.base': '"phone" must be a standard Israeli phone number starting with 05 and must contain at least 9 digits.',
+        phone: Joi.string().required().min(9).max(11).pattern(/^05\d+$/).messages({
             'string.empty': '"phone" is required.',
-            'string.min': '"phone" must be at least 9 characters long.',
-            'string.max': '"phone" must be at most 11 characters long.',
+            'string.min': '"phone" must be at least 9 digits.',
+            'string.max': '"phone" must be at most 11 digits.',
+            'string.pattern.base': '"phone" must start with 05 and contain only digits (no dashes, spaces or letters).'
         }),
         url: Joi.string().min(14).allow("").uri(),
         alt: Joi.string().min(2).max(256).allow(""),
@@ -42,5 +42,9 @@ function validateEditUser() {
         isBusiness: Joi.boolean().required(),
     }));
 }
+
+//zip - required:
+//באישור של מתרגל
+//עשיתי שהמיקוד יהיה שדה חובה כי השרת מחייב להחזיר מספר וכאשר אני עושה שזה יהיה אופציונלי זה מחזיר מחרוזת ריקה 
 
 export default validateEditUser;

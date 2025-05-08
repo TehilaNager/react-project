@@ -1,13 +1,8 @@
-import { useEffect } from "react";
 import PageHeader from "../components/common/pageHeader";
-import { useCards } from "../context/cardsContext";
+import useResetSearchOnMount from "../../hook/useResetSearchOnMount";
 
 function About() {
-  const { resetSearch } = useCards();
-
-  useEffect(() => {
-    resetSearch();
-  }, []);
+  useResetSearchOnMount();
 
   return (
     <div className="container col-10 col-md-8">

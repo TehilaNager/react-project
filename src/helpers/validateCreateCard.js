@@ -5,19 +5,12 @@ function validateCreateCard() {
         title: Joi.string().min(2).max(256).required(),
         subtitle: Joi.string().min(2).max(256).required(),
         description: Joi.string().min(2).max(1024).required(),
-        // phone: Joi.string().min(9).max(12).required().pattern(/^05\d{1}-?\d+$/)
-        //     .messages({
-        //         'string.empty': '"phone" is required.',
-        //         'string.pattern.base': '"phone" must be a valid Israeli phone number, starting with 05 and followed by a digit, with an optional dash after the third digit.'
-        //     }),
-        phone: Joi.string()
-            .required()
-            .pattern(/^05\d{6,8}$|^05\d{1}-\d{7,9}$/)
-            .messages({
-                'string.empty': '"phone" is required.',
-                'string.pattern.base': '"phone" must start with 05 and include 9–11 digits. You can write it either as 050123456 or 050-1234567 (dash is optional, but if you use it, it must come after the third digit and total digits must be 10–11).'
-            }),
-
+        phone: Joi.string().required().min(9).max(11).pattern(/^05\d+$/).messages({
+            'string.empty': '"phone" is required.',
+            'string.min': '"phone" must be at least 9 digits.',
+            'string.max': '"phone" must be at most 11 digits.',
+            'string.pattern.base': '"phone" must start with 05 and contain only digits (no dashes, spaces or letters).'
+        }),
         email: Joi.string().min(5).required().email({ tlds: false }),
         web: Joi.string().min(14).allow("").uri(),
         url: Joi.string().min(14).allow("").uri(),

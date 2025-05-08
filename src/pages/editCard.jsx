@@ -8,8 +8,10 @@ import { useCards } from "../context/cardsContext";
 import { useLocation, useNavigate } from "react-router";
 import normalValuesCard from "../helpers/normalValuesCard";
 import { useState } from "react";
+import useResetSearchOnMount from "../../hook/useResetSearchOnMount";
 
 function EditCard() {
+  useResetSearchOnMount();
   const [serverError, setServerError] = useState("");
 
   const { updateCard } = useCards();

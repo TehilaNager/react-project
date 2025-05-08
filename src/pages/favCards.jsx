@@ -1,16 +1,12 @@
-import { useEffect } from "react";
 import Card from "../components/card";
 import PageHeader from "../components/common/pageHeader";
 import { useCards } from "../context/cardsContext";
+import useResetSearchOnMount from "../../hook/useResetSearchOnMount";
 
 function FavCards() {
-  const { favoritesCards, like, remove, resetSearch } = useCards();
-
+  const { favoritesCards, like, remove } = useCards();
   const favorites = favoritesCards();
-
-  useEffect(() => {
-    resetSearch();
-  }, []);
+  useResetSearchOnMount();
 
   return (
     <div className="container">

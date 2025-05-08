@@ -3,15 +3,12 @@ import { useEffect } from "react";
 import Card from "../components/card";
 import PageHeader from "../components/common/pageHeader";
 import { useCards } from "../context/cardsContext";
+import useResetSearchOnMount from "../../hook/useResetSearchOnMount";
 
 function MyCards() {
-  const { allMyCards, like, remove, resetSearch } = useCards();
-
+  const { allMyCards, like, remove } = useCards();
   const myCards = allMyCards();
-
-  useEffect(() => {
-    resetSearch();
-  }, []);
+  useResetSearchOnMount();
 
   return (
     <div className="container">
