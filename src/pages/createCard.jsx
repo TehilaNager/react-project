@@ -8,10 +8,8 @@ import initialValuesCreateCard from "../helpers/initialValuesCreateCard";
 import validateCreateCard from "../helpers/validateCreateCard";
 import normalValuesCard from "../helpers/normalValuesCard";
 import cardsService from "../services/cardsService";
-import useResetSearchOnMount from "../../hook/useResetSearchOnMount";
 
 function CreateCard() {
-  useResetSearchOnMount();
   const [serverError, setServerError] = useState("");
 
   const navigate = useNavigate();

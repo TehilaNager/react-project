@@ -1,10 +1,8 @@
 import { Link } from "react-router";
 import { useAuth } from "../context/authContext";
-import useResetSearchOnMount from "../../hook/useResetSearchOnMount";
 
 function SandBox() {
   const { users, remove } = useAuth();
-  useResetSearchOnMount();
 
   return (
     <div className="container mt-5">

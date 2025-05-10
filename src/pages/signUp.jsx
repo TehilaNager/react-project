@@ -8,13 +8,11 @@ import FormButtons from "../components/common/FormButtons";
 import initialValuesSignup from "../helpers/initialValuesSignup";
 import validateSignup from "../helpers/validateSignup";
 import normalValuesUser from "../helpers/normalValuesUser";
-import useResetSearchOnMount from "../../hook/useResetSearchOnMount";
 
 function SignUp() {
   const [serverError, setServerError] = useState("");
   const { user, createUser } = useAuth();
   const navigate = useNavigate();
-  useResetSearchOnMount();
 
   const { getFieldProps, handleSubmit, touched, errors, isValid, resetForm } =
     useFormik({

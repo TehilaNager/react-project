@@ -8,7 +8,6 @@ cardsContext.displayName = "Cards";
 export function CardsProvider({ children }) {
   const [cards, setCards] = useState([]);
   const [term, setTerm] = useState("");
-
   const { user } = useAuth() || {};
 
   const fetchCards = async () => {

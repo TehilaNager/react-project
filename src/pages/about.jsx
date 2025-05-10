@@ -1,9 +1,6 @@
 import PageHeader from "../components/common/pageHeader";
-import useResetSearchOnMount from "../../hook/useResetSearchOnMount";
 
 function About() {
-  useResetSearchOnMount();
-
   return (
     <div className="container col-10 col-md-8">
       <PageHeader title="About Me" classNameTitle="my-3" />

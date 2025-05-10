@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router";
+import { Routes, Route, useLocation } from "react-router";
 import BCard from "../pages/BCard";
 import About from "../pages/about";
 import SignIn from "../pages/signIn";
@@ -11,8 +11,18 @@ import CreateCard from "../pages/createCard";
 import EditCard from "../pages/editCard";
 import EditUser from "../pages/editUser";
 import UserInfo from "../pages/userInfo";
+import CardInfo from "../pages/cardInfo";
+import { useEffect } from "react";
+import { useCards } from "../context/cardsContext";
 
 function AppRoutes() {
+  const { resetSearch } = useCards();
+  const location = useLocation();
+
+  useEffect(() => {
+    resetSearch();
+  }, [location]);
+
   return (
     <Routes>
       <Route path="/" element={<BCard />} />
@@ -28,6 +38,8 @@ function AppRoutes() {
       <Route path="/edit-card/:id" element={<EditCard />} />
       <Route path="/edit-user/:id" element={<EditUser />} />
       {/* <Route path="/user-info/:id" element={<UserInfo />} /> */}
+      {/* <Route path="/card-info/:id" element={<CardInfo />} /> */}
+      <Route path="/card-info" element={<CardInfo />} />
     </Routes>
   );
 }

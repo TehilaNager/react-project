@@ -1,11 +1,9 @@
 import { useCards } from "../context/cardsContext";
 import PageHeader from "../components/common/pageHeader";
 import Card from "../components/card";
-import useResetSearchOnMount from "../../hook/useResetSearchOnMount";
 
 function BCard() {
   const { remove, like, allCards } = useCards();
-  useResetSearchOnMount();
 
   return (
     <div className="container">

@@ -6,13 +6,11 @@ import PageHeader from "../components/common/pageHeader";
 import Input from "../components/common/input";
 import FormButtons from "../components/common/FormButtons";
 import { useAuth } from "../context/authContext";
-import useResetSearchOnMount from "../../hook/useResetSearchOnMount";
 
 function SignIn() {
   const [serverError, setServerError] = useState("");
   const { logIn, user } = useAuth();
   const navigate = useNavigate();
-  useResetSearchOnMount();
 
   const { handleSubmit, getFieldProps, errors, touched, isValid, resetForm } =
     useFormik({

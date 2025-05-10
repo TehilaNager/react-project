@@ -8,10 +8,8 @@ import { useAuth } from "../context/authContext";
 import normalValuesEditUser from "../helpers/normalValesEditUser";
 import { useNavigate } from "react-router";
 import { useState } from "react";
-import useResetSearchOnMount from "../../hook/useResetSearchOnMount";
 
 function EditUser() {
-  useResetSearchOnMount();
   const [serverError, setServerError] = useState();
   const { user } = useAuth();
   const { updateUser } = useAuth();
