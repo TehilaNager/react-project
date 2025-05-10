@@ -1,3 +1,5 @@
-function UserInfo() {}
+function UserInfo() {
+  return <div>user info</div>;
+}
 
 export default UserInfo;

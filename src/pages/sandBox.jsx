@@ -28,7 +28,10 @@ function SandBox() {
               <td>{user.email}</td>
               <td>{user.phone}</td>
               <td>
-                <Link style={{ cursor: "pointer" }} to="/user-info">
+                <Link
+                  style={{ cursor: "pointer" }}
+                  to={`/user-info/${user._id}`}
+                >
                   <i className="bi bi-info-circle-fill text-black"></i>
                 </Link>
               </td>

@@ -30,16 +30,14 @@ function AppRoutes() {
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/sign-out" element={<SignOut />} />
-
       <Route path="/fav-cards" element={<FavCards />} />
       <Route path="/my-cards" element={<MyCards />} />
       <Route path="/sandbox" element={<SandBox />} />
       <Route path="/create-card" element={<CreateCard />} />
       <Route path="/edit-card/:id" element={<EditCard />} />
       <Route path="/edit-user/:id" element={<EditUser />} />
-      {/* <Route path="/user-info/:id" element={<UserInfo />} /> */}
-      {/* <Route path="/card-info/:id" element={<CardInfo />} /> */}
-      <Route path="/card-info" element={<CardInfo />} />
+      <Route path="/user-info/:id" element={<UserInfo />} />
+      <Route path="/card-info/:id" element={<CardInfo />} />
     </Routes>
   );
 }
