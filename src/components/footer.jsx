@@ -9,7 +9,7 @@ function Footer() {
   return (
     <footer
       className={[
-        "mt-auto border-top d-flex justify-content-evenly align-items-center py-3",
+        "mt-md-auto mt-1 border-top d-flex justify-content-evenly align-items-center py-md-2 py-1", // הורדתי את הרווחים
         theme === "light" ? "bg-white" : undefined,
       ].join(" ")}
     >

@@ -1,13 +1,25 @@
 import { useLocation } from "react-router";
+import { useTheme } from "../context/themeContext";
 
 function UserInfo() {
   const location = useLocation();
   const user = location.state;
 
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
-    <div className="d-flex align-items-center justify-content-center bg-light">
+    <div
+      className={`d-flex align-items-center justify-content-center ${
+        isDark ? "bg-dark text-white" : "bg-light"
+      }`}
+    >
       <div className="container mt-5">
-        <div className="border rounded shadow p-4 bg-white">
+        <div
+          className={`border rounded shadow p-4 ${
+            isDark ? "bg-body-secondary text-white border-light" : "bg-white"
+          }`}
+        >
           <div className="row">
             <div className="col-md-8 d-flex flex-column align-items-start">
               <div className="mb-4 border-bottom pb-3">
@@ -15,7 +27,7 @@ function UserInfo() {
                   <img
                     src={user.image.url}
                     alt={user.image.alt}
-                    className="rounded-circle me-3"
+                    className="rounded-circle me-3 border"
                     width="80"
                     height="80"
                   />
@@ -23,9 +35,17 @@ function UserInfo() {
                     <h3 className="fw-bold mb-0">
                       {user.name.first} {user.name.middle} {user.name.last}
                     </h3>
-                    <span className="badge bg-secondary">
-                      <strong>Type user:</strong>
-                      Admin
+                    <span
+                      className={`badge ms-1 ${
+                        isDark ? "bg-secondary text-light" : "bg-secondary"
+                      }`}
+                    >
+                      <strong>Type user:</strong>{" "}
+                      {user.isAdmin
+                        ? "Admin"
+                        : user.isBusiness
+                        ? "Business"
+                        : "Regular"}
                     </span>
                   </div>
                 </div>
@@ -33,42 +53,47 @@ function UserInfo() {
 
               <div className="mb-4 border-bottom pb-3">
                 <h4 className="fw-bold mb-3">Contact</h4>
-                <ul className="list-group list-group-flush fs-5">
-                  <li className="list-group-item border-0 px-0 py-2">
+                <div className="fs-5">
+                  <div className="mb-2">
                     📞 <strong>Phone:</strong> {user.phone}
-                  </li>
-                  <li className="list-group-item border-0 px-0 py-2">
+                  </div>
+                  <div className="mb-2">
                     ✉️ <strong>Email:</strong>
-                    <a href={user.email} className="link-primary ms-1">
+                    <a
+                      href={`mailto:${user.email}`}
+                      className={`ms-1 ${
+                        isDark ? "text-info" : "link-primary"
+                      }`}
+                    >
                       {user.email}
                     </a>
-                  </li>
+                  </div>
                   {user.web && (
-                    <li className="list-group-item border-0 px-0 py-2">
+                    <div className="mb-2">
                       🌐 <strong>Web:</strong>
                       <a
                         href={user.web}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="link-primary ms-1"
+                        className={`ms-1 ${
+                          isDark ? "text-info" : "link-primary"
+                        }`}
                       >
                         {user.web}
                       </a>
-                    </li>
+                    </div>
                   )}
-                </ul>
+                </div>
               </div>
 
-              <div className="">
+              <div>
                 <h4 className="fw-bold mb-3">Address</h4>
-                <ul className="list-group list-group-flush fs-5">
-                  <li className="list-group-item border-0 px-0 py-2">
-                    🗺️ <strong>Address:</strong> {user.address.street}
-                    {user.address.houseNumber}, {user.address.city},
-                    {user.address.state}, {user.address.zip},
-                    {user.address.country}.
-                  </li>
-                </ul>
+                <div className="fs-5">
+                  🗺️ <strong>Address:</strong> {user.address.street}
+                  {user.address.houseNumber}, {user.address.city},{" "}
+                  {user.address.state}, {user.address.zip},{" "}
+                  {user.address.country}.
+                </div>
               </div>
             </div>
           </div>

@@ -18,7 +18,21 @@ function EditUser() {
 
   const { handleSubmit, getFieldProps, errors, isValid, resetForm, setValues } =
     useFormik({
-      initialValues: "",
+      initialValues: {
+        first: "",
+        middle: "",
+        last: "",
+        phone: "",
+        url: "",
+        alt: "",
+        state: "",
+        country: "",
+        city: "",
+        street: "",
+        houseNumber: "",
+        zip: "",
+        isBusiness: false,
+      },
       validateOnMount: true,
       validate: (values) => {
         const schema = validateEditUser();
@@ -60,12 +74,12 @@ function EditUser() {
       setCurrentUser(data);
       setValues({
         first: data?.name.first || "",
-        middle: data?.name.middle || "",
+        middle: data?.name.middle === "not defined" ? "" : data?.name.middle,
         last: data?.name.last || "",
         phone: data?.phone || "",
-        url: data?.image.url || "",
-        alt: data?.image.alt || "",
-        state: data?.address.state || "",
+        url: data?.image.url === "not defined" ? "" : data?.image.url,
+        alt: data?.image.alt === "not defined" ? "" : data?.image.alt,
+        state: data?.address.state === "not defined" ? "" : data?.address.state,
         country: data?.address.country || "",
         city: data?.address.city || "",
         street: data?.address.street || "",

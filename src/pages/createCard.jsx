@@ -7,12 +7,12 @@ import FormButtons from "../components/common/FormButtons";
 import initialValuesCreateCard from "../helpers/initialValuesCreateCard";
 import validateCreateCard from "../helpers/validateCreateCard";
 import normalValuesCard from "../helpers/normalValuesCard";
-import cardsService from "../services/cardsService";
+import { useCards } from "../context/cardsContext";
 
 function CreateCard() {
   const [serverError, setServerError] = useState("");
-
   const navigate = useNavigate();
+  const { createNewCard } = useCards();
 
   const { getFieldProps, handleSubmit, touched, errors, isValid, resetForm } =
     useFormik({
@@ -37,7 +37,7 @@ function CreateCard() {
       onSubmit: async (values) => {
         try {
           const card = normalValuesCard(values);
-          await cardsService.createCard(card);
+          await createNewCard(card);
           navigate("/my-cards");
         } catch (err) {
           if (err.status === 400) {

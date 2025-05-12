@@ -1,5 +1,4 @@
 import { NavLink } from "react-router";
-import { useEffect } from "react";
 import Card from "../components/card";
 import PageHeader from "../components/common/pageHeader";
 import { useCards } from "../context/cardsContext";

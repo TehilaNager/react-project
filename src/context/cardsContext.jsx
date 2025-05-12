@@ -37,6 +37,12 @@ export function CardsProvider({ children }) {
       .filter((card) => card.title.toLowerCase().includes(term.toLowerCase()));
   };
 
+  const createNewCard = async (values) => {
+    const response = await cardsService.createCard(values);
+    fetchCards();
+    return response;
+  };
+
   const allMyCards = () => {
     return cards
       .filter((card) => card.user_id === user?._id)
@@ -78,6 +84,7 @@ export function CardsProvider({ children }) {
         getCard,
         term,
         updateCard,
+        createNewCard,
       }}
     >
       {children}
