@@ -1,15 +1,20 @@
 import { Link } from "react-router";
 import { useAuth } from "../context/authContext";
 import formatPhoneToInternational from "../helpers/formatPhoneToInternational";
+import { useTheme } from "../context/themeContext";
 
 function Card({ card, onLike = () => {}, onDelete = () => {} }) {
   const { user } = useAuth() || {};
+  const { theme } = useTheme();
   const isOwned = card.user_id === user?._id;
 
   return (
     card && (
       <div
-        className="hover-zoom card m-2 shadow-lg rounded-5"
+        className={[
+          "hover-zoom card m-2 shadow-lg rounded-5 d-flex flex-column mb-3",
+          theme === "dark" ? "bg-body-secondary" : "",
+        ].join(" ")}
         style={{ width: "18rem" }}
       >
         <Link
@@ -23,7 +28,11 @@ function Card({ card, onLike = () => {}, onDelete = () => {} }) {
             style={{ height: "14rem" }}
             alt={card.image.alt}
           />
-          <div className="card-body">
+          <div
+            className={["card-body", theme === "dark" ? "text-light" : ""].join(
+              " "
+            )}
+          >
             <h5 className="card-title">{card.title}</h5>
 
             <h6 className="card-subtitle my-2 text-body-secondary border-bottom pb-3">
@@ -48,10 +57,13 @@ function Card({ card, onLike = () => {}, onDelete = () => {} }) {
           </div>
         </Link>
 
-        <div className="d-flex justify-content-evenly mb-3">
+        <div className="d-flex justify-content-evenly mb-3 mt-auto">
           <a href={`tel:${formatPhoneToInternational(card.phone)}`}>
             <i
-              className="bi bi-telephone-fill text-black"
+              className={[
+                "bi bi-telephone-fill",
+                theme === "dark" ? "text-danger-emphasis" : "text-black",
+              ].join(" ")}
               style={{ cursor: "pointer" }}
             ></i>
           </a>
@@ -67,7 +79,10 @@ function Card({ card, onLike = () => {}, onDelete = () => {} }) {
               onClick={onLike}
             >
               <i
-                className={card.liked ? "bi bi-heart-fill" : "bi bi-heart"}
+                className={[
+                  card.liked ? "bi bi-heart-fill" : "bi bi-heart",
+                  theme === "dark" ? "text-danger" : "",
+                ].join(" ")}
               ></i>
             </button>
           )}
@@ -78,7 +93,12 @@ function Card({ card, onLike = () => {}, onDelete = () => {} }) {
                 to={`/edit-card/${card._id}`}
                 state={card}
               >
-                <i className="bi bi-pencil-fill text-black"></i>
+                <i
+                  className={[
+                    "bi bi-pencil-fill text-black",
+                    theme === "dark" ? "text-info-emphasis" : "",
+                  ].join(" ")}
+                ></i>
               </Link>
               <button
                 style={{
@@ -89,7 +109,12 @@ function Card({ card, onLike = () => {}, onDelete = () => {} }) {
                 }}
                 onClick={onDelete}
               >
-                <i className="bi bi-trash3-fill"></i>
+                <i
+                  className={[
+                    "bi bi-trash3-fill",
+                    theme === "dark" ? "text-warning" : "",
+                  ].join(" ")}
+                ></i>
               </button>
             </>
           )}

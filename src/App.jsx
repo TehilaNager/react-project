@@ -7,15 +7,15 @@ function App() {
   const { theme } = useTheme();
 
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className="d-flex flex-column min-vh-100 position-relative">
       <header>
         <NavBar />
       </header>
       <main
-        className={[
-          "flex-fill",
-          theme === "dark" ? "bg-black" : "rgb(237, 250, 253)",
-        ].join()}
+        className="flex-fill pb-5"
+        style={{
+          backgroundColor: theme === "light" ? "rgb(237, 250, 253)" : undefined,
+        }}
       >
         <AppRoutes />
       </main>

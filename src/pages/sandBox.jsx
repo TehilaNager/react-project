@@ -7,17 +7,29 @@ function SandBox() {
   return (
     <div className="container mt-5">
       <div className="d-none d-md-block">
-        <div className="table-responsive">
-          <table className="table">
-            <thead>
+        <div className="d-flex justify-content-center">
+          <table className="table text-center align-middle w-auto">
+            <thead className="fs-5">
               <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
+                <th scope="col" className="w-25">
+                  Id
+                </th>
+                <th scope="col" className="w-25">
+                  Name
+                </th>
                 <th scope="col">Email</th>
-                <th scope="col">Phone</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col" className="w-25">
+                  Phone
+                </th>
+                <th scope="col" className="px-3">
+                  Info
+                </th>
+                <th scope="col" className="px-3">
+                  Edit
+                </th>
+                <th scope="col" className="px-3">
+                  Delete
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -29,7 +41,7 @@ function SandBox() {
                   </td>
                   <td>{user.email}</td>
                   <td>{user.phone}</td>
-                  <td>
+                  <td className="px-3">
                     <Link
                       to={`/user-info/${user._id}`}
                       style={{ cursor: "pointer" }}
@@ -38,15 +50,15 @@ function SandBox() {
                       <i className="bi bi-info-circle-fill text-danger-emphasis"></i>
                     </Link>
                   </td>
-                  <td>
+                  <td className="px-3">
                     <Link
                       to={`/edit-user/${user._id}`}
                       style={{ cursor: "pointer" }}
                     >
-                      <i className="bi bi-pencil-fill text-primary ps-2"></i>
+                      <i className="bi bi-pencil-fill text-primary"></i>
                     </Link>
                   </td>
-                  <td>
+                  <td className="px-3">
                     {!user.isAdmin && (
                       <button
                         onClick={() => remove(user._id)}
@@ -57,7 +69,7 @@ function SandBox() {
                           padding: 0,
                         }}
                       >
-                        <i className="bi bi-trash3-fill text-danger px-2"></i>
+                        <i className="bi bi-trash3-fill text-danger"></i>
                       </button>
                     )}
                   </td>
