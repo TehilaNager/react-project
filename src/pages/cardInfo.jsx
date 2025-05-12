@@ -34,22 +34,25 @@ function CardInfo() {
                 {card.email}
               </a>
             </div>
-            <div className="border-bottom pb-2 mb-2">
-              🌐 <strong>Web: </strong>
-              <a
-                href={card.web}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-primary ms-1"
-              >
-                {card.web}
-              </a>
-            </div>
+            {card.web && (
+              <div className="border-bottom pb-2 mb-2">
+                🌐 <strong>Web: </strong>
+                <a
+                  href={card.web}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-primary ms-1"
+                >
+                  {card.web}
+                </a>
+              </div>
+            )}
             <div>
               🗺️ <strong>Address: </strong>
-              {card.address.street} {card.address.houseNumber},{" "}
-              {card.address.city}, {card.address.state}, {card.address.zip},{" "}
-              {card.address.country}.
+              {card.address.street} {card.address.houseNumber},
+              {card.address.city}, {card.address.state}
+              {card.address.state ? ", " : ""}
+              {card.address.zip}, {card.address.country}.
             </div>
           </div>
         </div>

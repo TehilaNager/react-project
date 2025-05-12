@@ -33,7 +33,7 @@ function UserInfo() {
                   />
                   <div>
                     <h3 className="fw-bold mb-0">
-                      {user.name.first} {user.name.middle} {user.name.last}
+                      {user.name.first} {user.name?.middle} {user.name.last}
                     </h3>
                     <span
                       className={`badge ms-1 ${
@@ -91,8 +91,10 @@ function UserInfo() {
                 <div className="fs-5">
                   🗺️ <strong>Address:</strong> {user.address.street}
                   {user.address.houseNumber}, {user.address.city},{" "}
-                  {user.address.state}, {user.address.zip},{" "}
-                  {user.address.country}.
+                  {user.address.state === "not defined"
+                    ? ""
+                    : `${user.address.state},`}
+                  {user.address.zip}, {user.address.country}.
                 </div>
               </div>
             </div>
