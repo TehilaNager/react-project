@@ -25,17 +25,7 @@ function UserInfo() {
                     </h3>
                     <span className="badge bg-secondary">
                       <strong>Type user:</strong>
-                      {/* {() => {
-                        if (user.isBusiness) {
-                          return "business";
-                        } else {
-                          if (user.isAdmin) {
-                            return "Admin";
-                          } else {
-                            return "Regular";
-                          }
-                        }
-                      }} */}
+                      Admin
                     </span>
                   </div>
                 </div>

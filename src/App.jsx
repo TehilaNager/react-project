@@ -1,7 +1,7 @@
-import NavBar from "./components/navBar";
-import AppRoutes from "./routes/appRoutes";
-import Footer from "./components/footer";
 import { useTheme } from "./context/themeContext";
+import AppRoutes from "./routes/appRoutes";
+import NavBar from "./components/navBar";
+import Footer from "./components/footer";
 
 function App() {
   const { theme } = useTheme();

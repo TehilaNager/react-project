@@ -89,13 +89,13 @@ function NavBar() {
             )}
           </ul>
 
-          <ul className="navbar-nav ms-auto mb-2 mb-md-0 align-items-center">
-            <li className="nav-item">
+          <ul className="navbar-nav ms-auto mb-2 mb-md-0 d-flex align-items-center gap-3">
+            <li className="nav-item me-2">
               <form role="search">
                 <input
                   className="form-control"
                   type="search"
-                  placeholder="Search "
+                  placeholder="Search"
                   aria-label="Search"
                   value={term}
                   onChange={(e) => search(e.target.value)}
@@ -112,7 +112,7 @@ function NavBar() {
               }}
               onClick={() => saveTheme()}
             >
-              <i className="bi bi-moon-fill ms-3 fs-4"></i>
+              <i className="bi bi-moon-fill fs-4 ms-2"></i>
             </button>
 
             {user ? (

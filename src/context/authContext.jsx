@@ -43,6 +43,12 @@ export function AuthProvider({ children }) {
     refreshUser();
   };
 
+  const updateTypeUser = async (id) => {
+    const response = await usersService.updateIsBusiness(id);
+    fetchUsers();
+    return response;
+  };
+
   return (
     <authContext.Provider
       value={{
@@ -53,6 +59,7 @@ export function AuthProvider({ children }) {
         logOut,
         remove,
         updateUser,
+        updateTypeUser,
       }}
     >
       {children}

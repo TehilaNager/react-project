@@ -3,7 +3,7 @@ import PageHeader from "../components/common/pageHeader";
 function About() {
   return (
     <div className="container col-10 col-md-8">
-      <PageHeader title="About Me" classNameTitle="my-3" />
+      <PageHeader title="About Me" classNameTitle="py-2 pt-4" />
       <p>
         The website was developed as a final project for the React module,
         aiming to showcase my skills in building modern web applications. It

@@ -96,7 +96,7 @@ function EditCard() {
             {...getFieldProps("phone")}
             error={errors.phone}
             label="Phone"
-            type="tel"
+            type="text"
             placeholder="0585549635"
             required
           />

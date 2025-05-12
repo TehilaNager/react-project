@@ -1,24 +1,20 @@
+import { useNavigate, useParams } from "react-router";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import initialValuesEditUser, {
-  emptyValues,
-} from "../helpers/initialValuesEditUser";
 import PageHeader from "../components/common/pageHeader";
 import Input from "../components/common/input";
 import FormButtons from "../components/common/FormButtons";
 import validateEditUser from "../helpers/validateEditUser";
 import { useAuth } from "../context/authContext";
 import normalValuesEditUser from "../helpers/normalValesEditUser";
-import { useNavigate, useParams } from "react-router";
-import { useState, useEffect } from "react";
 import usersService from "../services/usersService";
 
 function EditUser() {
   const [serverError, setServerError] = useState();
-  const { user, updateUser } = useAuth();
-  const navigate = useNavigate();
-  const { id } = useParams();
-
   const [currentUser, setCurrentUser] = useState(null);
+  const { user, updateUser, updateTypeUser } = useAuth();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const { handleSubmit, getFieldProps, errors, isValid, resetForm, setValues } =
     useFormik({
@@ -42,6 +38,7 @@ function EditUser() {
         try {
           const normalUser = normalValuesEditUser(values);
           await updateUser(id, normalUser);
+          await updateTypeUser(id);
           if (user.isAdmin === true) {
             navigate("/sandbox");
           } else {
@@ -83,14 +80,6 @@ function EditUser() {
   if (!currentUser) {
     return <div>No found user.</div>;
   }
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await usersService.getUserById(id);
-  //     setValues(initialValuesEditUser(data));
-  //   };
-  //   fetchData();
-  // }, []);
 
   return (
     <div className="container col-11 col-md-7">
