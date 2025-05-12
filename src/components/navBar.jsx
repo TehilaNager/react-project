@@ -2,14 +2,18 @@ import { Link, NavLink } from "react-router";
 import Logo from "./common/logo";
 import { useAuth } from "../context/authContext";
 import { useCards } from "../context/cardsContext";
+import { useTheme } from "../context/themeContext";
 
 function NavBar() {
-  const { user, initialValueEdit } = useAuth();
+  const { user } = useAuth();
   const { search, term } = useCards();
-
+  const { saveTheme, theme } = useTheme();
   return (
     <nav
-      className="navbar navbar-dark navbar-expand-md bg-primary"
+      className={[
+        "navbar navbar-dark navbar-expand-md bg-primary",
+        theme === "dark" ? "bg-black" : "",
+      ].join(" ")}
       aria-label="Third navbar example"
     >
       <div className="container">
@@ -99,7 +103,17 @@ function NavBar() {
               </form>
             </li>
 
-            {/* <i className="bi bi-moon-fill ms-3 fs-4"></i> */}
+            <button
+              style={{
+                cursor: "pointer",
+                border: "none",
+                background: "none",
+                padding: 0,
+              }}
+              onClick={() => saveTheme()}
+            >
+              <i className="bi bi-moon-fill ms-3 fs-4"></i>
+            </button>
 
             {user ? (
               <div
@@ -130,7 +144,6 @@ function NavBar() {
                     <Link
                       className="dropdown-item text-danger px-4 py-2"
                       to={`/edit-user/${user?._id}`}
-                      state={initialValueEdit}
                     >
                       Edit
                     </Link>

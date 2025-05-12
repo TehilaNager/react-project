@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import usersService from "../services/usersService";
-import { useLocation } from "react-router";
 
 export const authContext = createContext();
 authContext.displayName = "Auth";
@@ -8,20 +7,6 @@ authContext.displayName = "Auth";
 export function AuthProvider({ children }) {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(usersService.getUser());
-  const [initialValueEdit, setInitialValueEdit] = useState({});
-
-  const fetchCurrentUser = async () => {
-    const response = await usersService.getUserById(user._id);
-    setInitialValueEdit(response);
-    return response;
-  };
-
-  useEffect(() => {
-    fetchCurrentUser();
-  }, []);
-
-  const location = useLocation();
-  const userState = location.state;
 
   const fetchUsers = async () => {
     if (user.isAdmin) {
@@ -39,8 +24,8 @@ export function AuthProvider({ children }) {
     fetchUsers();
   };
 
-  const updateUser = async (values) => {
-    const response = await usersService.updateUserById(userState._id, values);
+  const updateUser = async (id, values) => {
+    const response = await usersService.updateUserById(id, values);
     fetchUsers();
     return response;
   };
@@ -62,14 +47,12 @@ export function AuthProvider({ children }) {
     <authContext.Provider
       value={{
         user,
+        users,
         createUser: usersService.createUser,
         logIn,
         logOut,
-        users,
         remove,
-        userState,
         updateUser,
-        initialValueEdit,
       }}
     >
       {children}

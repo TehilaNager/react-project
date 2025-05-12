@@ -1,23 +1,28 @@
 import { useFormik } from "formik";
-import initialValuesEditUser from "../helpers/initialValuesEditUser";
+import initialValuesEditUser, {
+  emptyValues,
+} from "../helpers/initialValuesEditUser";
 import PageHeader from "../components/common/pageHeader";
 import Input from "../components/common/input";
 import FormButtons from "../components/common/FormButtons";
 import validateEditUser from "../helpers/validateEditUser";
 import { useAuth } from "../context/authContext";
 import normalValuesEditUser from "../helpers/normalValesEditUser";
-import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { useState, useEffect } from "react";
+import usersService from "../services/usersService";
 
 function EditUser() {
   const [serverError, setServerError] = useState();
-  const { user } = useAuth();
-  const { updateUser } = useAuth();
+  const { user, updateUser } = useAuth();
   const navigate = useNavigate();
+  const { id } = useParams();
 
-  const { handleSubmit, getFieldProps, errors, isValid, resetForm } = useFormik(
-    {
-      initialValues: initialValuesEditUser(),
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const { handleSubmit, getFieldProps, errors, isValid, resetForm, setValues } =
+    useFormik({
+      initialValues: "",
       validateOnMount: true,
       validate: (values) => {
         const schema = validateEditUser();
@@ -36,7 +41,7 @@ function EditUser() {
       onSubmit: async (values) => {
         try {
           const normalUser = normalValuesEditUser(values);
-          await updateUser(normalUser);
+          await updateUser(id, normalUser);
           if (user.isAdmin === true) {
             navigate("/sandbox");
           } else {
@@ -50,8 +55,42 @@ function EditUser() {
           }
         }
       },
-    }
-  );
+    });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await usersService.getUserById(id);
+      setCurrentUser(data);
+      setValues({
+        first: data?.name.first || "",
+        middle: data?.name.middle || "",
+        last: data?.name.last || "",
+        phone: data?.phone || "",
+        url: data?.image.url || "",
+        alt: data?.image.alt || "",
+        state: data?.address.state || "",
+        country: data?.address.country || "",
+        city: data?.address.city || "",
+        street: data?.address.street || "",
+        houseNumber: data?.address.houseNumber || "",
+        zip: data?.address.zip || "",
+        isBusiness: Boolean(data?.isBusiness),
+      });
+    };
+    fetchData();
+  }, [id]);
+
+  if (!currentUser) {
+    return <div>No found user.</div>;
+  }
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await usersService.getUserById(id);
+  //     setValues(initialValuesEditUser(data));
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <div className="container col-11 col-md-7">
@@ -182,25 +221,7 @@ function EditUser() {
 
         <FormButtons
           disabled={!isValid}
-          onReset={() =>
-            resetForm({
-              values: {
-                first: "",
-                middle: "",
-                last: "",
-                phone: "",
-                url: "",
-                alt: "",
-                state: "",
-                country: "",
-                city: "",
-                street: "",
-                houseNumber: "",
-                zip: "",
-                isBusiness: false,
-              },
-            })
-          }
+          onReset={() => resetForm(emptyValues)}
         />
       </form>
     </div>
