@@ -6,6 +6,7 @@ import PageHeader from "../components/common/pageHeader";
 import Input from "../components/common/input";
 import FormButtons from "../components/common/FormButtons";
 import { useAuth } from "../context/authContext";
+import { successFeedback } from "../helpers/feedback";
 
 function SignIn() {
   const [serverError, setServerError] = useState("");
@@ -54,6 +55,7 @@ function SignIn() {
       onSubmit: async (values) => {
         try {
           await logIn(values);
+          successFeedback("Login successful. Welcome!");
           navigate("/");
         } catch (err) {
           if (err.status === 400) {

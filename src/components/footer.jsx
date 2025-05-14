@@ -8,10 +8,10 @@ function Footer() {
 
   return (
     <footer
-      className={[
-        "mt-md-auto mt-1 border-top d-flex justify-content-evenly align-items-center py-md-2 py-1", // הורדתי את הרווחים
-        theme === "light" ? "bg-white" : undefined,
-      ].join(" ")}
+      className={`
+      mt-md-auto mt-1 border-top d-flex justify-content-evenly align-items-center py-md-2 py-1
+      ${theme === "light" ? "bg-white" : ""}
+    `}
     >
       <NavLink
         className="bi bi-exclamation-circle-fill nav-link d-flex flex-column text-center my-2"

@@ -9,10 +9,12 @@ import { BrowserRouter } from "react-router";
 import { AuthProvider } from "./context/authContext.jsx";
 import { CardsProvider } from "./context/cardsContext.jsx";
 import { ThemeProvider } from "./context/themeContext.jsx";
+import { ToastContainer } from "react-toastify";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
+        <ToastContainer />
         <CardsProvider>
           <ThemeProvider>
             <App />

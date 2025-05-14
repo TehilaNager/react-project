@@ -2,12 +2,11 @@ function Input({ label, error, ...rest }) {
   return (
     <div className={rest.type != "checkbox" ? "form-floating" : ""}>
       <input
-        className={[
-          rest.type != "checkbox"
+        className={`${
+          rest.type !== "checkbox"
             ? "form-control"
-            : "form-check-input me-2 mb-4",
-          error ? "is-invalid" : "",
-        ].join(" ")}
+            : "form-check-input me-2 mb-4"
+        } ${error ? "is-invalid" : ""}`}
         id={rest.name}
         {...rest}
       />

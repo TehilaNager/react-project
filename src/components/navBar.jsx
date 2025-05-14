@@ -10,10 +10,10 @@ function NavBar() {
   const { saveTheme, theme } = useTheme();
   return (
     <nav
-      className={[
-        "navbar navbar-dark navbar-expand-md bg-primary",
-        theme === "dark" ? "bg-black" : "",
-      ].join(" ")}
+      className={`
+      navbar navbar-dark navbar-expand-md bg-primary
+      ${theme === "dark" ? "bg-black" : ""}
+    `}
       aria-label="Third navbar example"
     >
       <div className="container">

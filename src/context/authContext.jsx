@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import usersService from "../services/usersService";
+import { successFeedback } from "../helpers/feedback";
 
 export const authContext = createContext();
 authContext.displayName = "Auth";
@@ -9,7 +10,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(usersService.getUser());
 
   const fetchUsers = async () => {
-    if (user.isAdmin) {
+    if (user?.isAdmin) {
       const data = await usersService.getAllUsers();
       setUsers(data);
     }
@@ -41,6 +42,7 @@ export function AuthProvider({ children }) {
   const logOut = () => {
     usersService.logOut();
     refreshUser();
+    successFeedback("Logout successful. Goodbye");
   };
 
   const updateTypeUser = async (id) => {
