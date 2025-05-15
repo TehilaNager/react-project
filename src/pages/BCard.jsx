@@ -1,6 +1,7 @@
 import { useCards } from "../context/cardsContext";
 import PageHeader from "../components/common/pageHeader";
 import Card from "../components/card";
+import { questionFeedback } from "../helpers/feedback";
 
 function BCard() {
   const { remove, like, allCards } = useCards();
@@ -20,7 +21,15 @@ function BCard() {
             key={card._id}
             card={card}
             onLike={() => like(card._id)}
-            onDelete={() => remove(card._id)}
+            onDelete={async () => {
+              const confirm = await questionFeedback(
+                "Card deleted successfully."
+              );
+
+              if (confirm) {
+                await remove(card._id);
+              }
+            }}
           />
         ))}
       </div>

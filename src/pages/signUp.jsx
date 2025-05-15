@@ -8,6 +8,7 @@ import FormButtons from "../components/common/FormButtons";
 import initialValuesSignup from "../helpers/initialValuesSignup";
 import validateSignup from "../helpers/validateSignup";
 import normalValuesUser from "../helpers/normalValuesUser";
+import { successFeedback } from "../helpers/feedback";
 
 function SignUp() {
   const [serverError, setServerError] = useState("");
@@ -38,6 +39,9 @@ function SignUp() {
         try {
           const user = normalValuesUser(values);
           await createUser(user);
+          successFeedback(
+            `Registration successful. Welcome ${user.name.first}!`
+          );
           navigate("/");
         } catch (err) {
           if (err.status === 400) {

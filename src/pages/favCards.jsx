@@ -1,6 +1,7 @@
 import Card from "../components/card";
 import PageHeader from "../components/common/pageHeader";
 import { useCards } from "../context/cardsContext";
+import { questionFeedback } from "../helpers/feedback";
 
 function FavCards() {
   const { favoritesCards, like, remove } = useCards();
@@ -10,7 +11,7 @@ function FavCards() {
     <div className="container">
       <PageHeader
         title="Favorites Cards"
-        description="Here you can find business cards from all categories"
+        description="Here you can find all the business cards you like."
         classNameTitle="mt-5 mb-3"
         classNameDescription="mb-4"
       />
@@ -21,7 +22,15 @@ function FavCards() {
             key={card._id}
             card={card}
             onLike={() => like(card._id)}
-            onDelete={() => remove(card._id)}
+            onDelete={async () => {
+              const confirm = await questionFeedback(
+                "Card deleted successfully."
+              );
+
+              if (confirm) {
+                await remove(card._id);
+              }
+            }}
           />
         ))}
       </div>

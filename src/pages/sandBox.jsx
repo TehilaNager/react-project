@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { useAuth } from "../context/authContext";
+import { questionFeedback } from "../helpers/feedback";
 
 function SandBox() {
   const { users, remove } = useAuth();
@@ -61,7 +62,14 @@ function SandBox() {
                   <td className="px-3">
                     {!user.isAdmin && (
                       <button
-                        onClick={() => remove(user._id)}
+                        onClick={async () => {
+                          const confirm = await questionFeedback(
+                            "User deleted successfully."
+                          );
+                          if (confirm) {
+                            await remove(user._id);
+                          }
+                        }}
                         style={{
                           cursor: "pointer",
                           border: "none",
@@ -105,7 +113,14 @@ function SandBox() {
                 </Link>
                 {!user.isAdmin && (
                   <button
-                    onClick={() => remove(user._id)}
+                    onClick={async () => {
+                      const confirm = await questionFeedback(
+                        "User deleted successfully."
+                      );
+                      if (confirm) {
+                        await remove(user._id);
+                      }
+                    }}
                     style={{ border: "none", background: "none", padding: 0 }}
                   >
                     <i className="bi bi-trash3-fill text-danger"></i>

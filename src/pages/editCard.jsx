@@ -8,6 +8,7 @@ import { useCards } from "../context/cardsContext";
 import { useLocation, useNavigate } from "react-router";
 import normalValuesCard from "../helpers/normalValuesCard";
 import { useState } from "react";
+import { questionFeedback } from "../helpers/feedback";
 
 function EditCard() {
   const [serverError, setServerError] = useState("");
@@ -39,8 +40,11 @@ function EditCard() {
       onSubmit: async (values) => {
         try {
           const normalCard = normalValuesCard(values);
-          await updateCard(card._id, normalCard);
-          navigate("/");
+          const confirm = await questionFeedback("Changes saved successfully.");
+          if (confirm) {
+            await updateCard(card._id, normalCard);
+            navigate(-1);
+          }
         } catch (err) {
           if (err.status === 400) {
             let message = err.response.data;

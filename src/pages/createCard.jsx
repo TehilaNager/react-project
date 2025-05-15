@@ -8,6 +8,7 @@ import initialValuesCreateCard from "../helpers/initialValuesCreateCard";
 import validateCreateCard from "../helpers/validateCreateCard";
 import normalValuesCard from "../helpers/normalValuesCard";
 import { useCards } from "../context/cardsContext";
+import { successFeedback } from "../helpers/feedback";
 
 function CreateCard() {
   const [serverError, setServerError] = useState("");
@@ -38,6 +39,7 @@ function CreateCard() {
         try {
           const card = normalValuesCard(values);
           await createNewCard(card);
+          successFeedback("Card created successfully!");
           navigate("/my-cards");
         } catch (err) {
           if (err.status === 400) {

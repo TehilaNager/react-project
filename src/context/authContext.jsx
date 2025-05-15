@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import usersService from "../services/usersService";
-import { successFeedback } from "../helpers/feedback";
+import { questionFeedback, successFeedback } from "../helpers/feedback";
 
 export const authContext = createContext();
 authContext.displayName = "Auth";
@@ -42,7 +42,6 @@ export function AuthProvider({ children }) {
   const logOut = () => {
     usersService.logOut();
     refreshUser();
-    successFeedback("Logout successful. Goodbye");
   };
 
   const updateTypeUser = async (id) => {

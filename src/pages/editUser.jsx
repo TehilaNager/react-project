@@ -8,6 +8,7 @@ import validateEditUser from "../helpers/validateEditUser";
 import { useAuth } from "../context/authContext";
 import normalValuesEditUser from "../helpers/normalValesEditUser";
 import usersService from "../services/usersService";
+import { questionFeedback } from "../helpers/feedback";
 
 function EditUser() {
   const [serverError, setServerError] = useState();
@@ -51,12 +52,12 @@ function EditUser() {
       onSubmit: async (values) => {
         try {
           const normalUser = normalValuesEditUser(values);
-          await updateUser(id, normalUser);
-          await updateTypeUser(id);
-          if (user.isAdmin === true) {
-            navigate("/sandbox");
-          } else {
-            navigate("/");
+
+          const confirm = await questionFeedback("Changes saved successfully.");
+          if (confirm) {
+            await updateUser(id, normalUser);
+            await updateTypeUser(id);
+            navigate(-1);
           }
         } catch (err) {
           if (err.status === 400) {

@@ -60,7 +60,7 @@ function NavBar() {
               </li>
             )}
 
-            {user?.isBusiness && (
+            {user?.isBusiness || user?.isAdmin ? (
               <li className="nav-item">
                 <NavLink
                   className={({ isActive }) =>
@@ -72,7 +72,7 @@ function NavBar() {
                   My Cards
                 </NavLink>
               </li>
-            )}
+            ) : null}
 
             {user?.isAdmin && (
               <li className="nav-item">
