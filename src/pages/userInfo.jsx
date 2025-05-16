@@ -10,19 +10,24 @@ function UserInfo() {
 
   return (
     <div
-      className={`d-flex align-items-center justify-content-center ${
+      className={`d-flex align-items-center justify-content-center mt-5 ${
         isDark ? "bg-dark text-white" : "bg-light"
       }`}
     >
-      <div className="container mt-5">
+      <div className="container d-flex justify-content-center align-items-center">
         <div
           className={`border rounded shadow p-4 ${
             isDark ? "bg-body-secondary text-white border-light" : "bg-white"
           }`}
+          style={{
+            width: "100%",
+            maxWidth: "700px",
+            minHeight: "500px",
+          }}
         >
           <div className="row">
-            <div className="col-md-8 d-flex flex-column align-items-start">
-              <div className="mb-4 border-bottom pb-3">
+            <div className="col-md-12 d-flex flex-column align-items-start">
+              <div className="mb-4 border-bottom pb-3 w-100">
                 <div className="d-flex align-items-center mb-3">
                   <img
                     src={user.image.url}
@@ -51,7 +56,7 @@ function UserInfo() {
                 </div>
               </div>
 
-              <div className="mb-4 border-bottom pb-3">
+              <div className="mb-4 border-bottom pb-3 w-100">
                 <h4 className="fw-bold mb-3">Contact</h4>
                 <div className="fs-5">
                   <div className="mb-2">
@@ -86,14 +91,14 @@ function UserInfo() {
                 </div>
               </div>
 
-              <div>
+              <div className="w-100">
                 <h4 className="fw-bold mb-3">Address</h4>
                 <div className="fs-5">
                   🗺️ <strong>Address:</strong> {user.address.street}
                   {user.address.houseNumber}, {user.address.city},{" "}
                   {user.address.state === "not defined"
                     ? ""
-                    : `${user.address.state},`}
+                    : `${user.address.state},`}{" "}
                   {user.address.zip}, {user.address.country}.
                 </div>
               </div>

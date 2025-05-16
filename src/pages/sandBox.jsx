@@ -1,12 +1,14 @@
 import { Link } from "react-router";
 import { useAuth } from "../context/authContext";
 import { questionFeedback } from "../helpers/feedback";
+import PageHeader from "../components/common/pageHeader";
 
 function SandBox() {
   const { users, remove } = useAuth();
 
   return (
     <div className="container mt-5">
+      <PageHeader title="User Management" classNameTitle="pb-3 text-center" />
       <div className="d-none d-md-block">
         <div className="d-flex justify-content-center">
           <table className="table text-center align-middle w-auto">

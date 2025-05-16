@@ -83,7 +83,7 @@ function NavBar() {
                   aria-current="page"
                   to="/sandbox"
                 >
-                  SandBox
+                  Sandbox
                 </NavLink>
               </li>
             )}
